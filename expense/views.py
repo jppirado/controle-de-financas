@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from .models import Expense
-
-def index( request ):
-
-    if not request.method == 'POST':
-        pass
 
 
-    return render( request ,'index_list.html')
+def dashboard(request):
+
+    return render(  request , 'dashboard/dashboard.html' )
+
+def create_expense(request): 
+
+    return render(request, 'form/form_create.html')

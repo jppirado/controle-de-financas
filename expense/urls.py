@@ -1,6 +1,7 @@
 from django.urls import path
-from .views import index
+from .views import dashboard,create_expense
 
 urlpatterns = [
-    path('' , index, name="lista"),
+    path('/dashboard' , dashboard, name="expense.dashboard"),
+    path('/dashboard/create' , create_expense, name="expense.create"),
 ]

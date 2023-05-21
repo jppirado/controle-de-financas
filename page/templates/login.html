@@ -1,0 +1,90 @@
+{% extends 'base/base.html' %}
+{% load static%}
+{% block css %}
+  <style>
+
+    .btn{
+      width: 200px;
+      height: 50px;
+      border-radius: 30px;
+    }
+
+    .btn-google, .btn-facebook{
+      border: 1px solid black;
+      margin-bottom: 1em;
+    }
+    .btn-google{
+    
+    }
+    .btn-facebook{
+      
+    }
+
+    .ti-facebook{
+      color:rgb(10, 10, 190);
+    }
+
+    .ti-google{
+      color: rgb(255, 0, 0);
+    }
+
+  </style>
+{% endblock css %}
+
+{% block content %}
+
+<section class="user-login section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="block">
+          
+            <div class="image align-self-center">
+              <img 
+                class="img-fluid" src="{% static 'images/login/puppet-6775196.svg' %}"
+                alt="desk-image">
+            </div>
+       
+            <div class="content text-center">
+          
+              <div class="title-text">
+                <h3>Inicie sessão na sua conta</h3>
+              </div>
+              <form action="#">
+
+                <input class="form-control main" type="text" placeholder="Nome de Usuarrio" required>
+
+                <input class="form-control main" type="password" placeholder="Senha" required>
+
+                <button class="btn btn-main-sm">Entrar</button>
+              </form>
+
+              <div class="title-text mt-1">
+                  <p>ou</p>
+                  <button class='btn btn-google'>
+                    <p>
+                      <i class="ti-google"></i>
+                       Google
+                    </p>
+                  </button>
+                  <button class="btn btn-facebook">
+                    <p> 
+                      <i class="ti-facebook"></i> Facebook
+                    </p>
+                  </button>
+              </div>
+              <div class="new-acount">
+                <a href="contact.html">Recuperar a senha</a>
+                <p>Não Possui Conta?<a href="sign-up.html"> Cria sua conta!</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% endblock content %}
+{% block script %}
+  
+{% endblock script %}

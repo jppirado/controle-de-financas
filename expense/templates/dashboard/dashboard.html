@@ -1,0 +1,15 @@
+{% extends 'base/base.html' %}
+
+{% block css %}
+<style>
+    .user-image {
+        width: 100px;
+        border-radius: 50%;
+        border: 2px solid black;
+    }    
+</style>
+
+{% endblock css %}
+{% block content %}
+    {% include  'dashboard/dashboard-options.html' %}
+{% endblock content %}
