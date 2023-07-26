@@ -9,6 +9,5 @@ class Expense( models.Model ):
     value = models.FloatField()
     date = models.DateField("Data da compra" , default=datetime.now())
     
-    
     def __str__(self):
         return self.name
