@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 
 {% block css %}
 <style>
@@ -10,6 +11,94 @@
 </style>
 
 {% endblock css %}
+  <link rel="stylesheet" href="https://cdn.flexmonster.com/demo.css">
 {% block content %}
-    {% include  'dashboard/dashboard-options.html' %}
+
+<section class="section page-title">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 m-auto">
+				<!-- Page Title -->
+
+				<h1>Bem Vindo - <strong>{{user}}</strong> </h1>
+				<!-- Page Description -->
+				<p>Seu gasto registrado no aplicativo: <strong>
+                    {{total.total_sum}}
+                </strong> </p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="privacy section pt-0">
+	<div class="container">
+		<div class="row">
+            {% include  'dashboard/dashboard-options.html' %}
+            {% include  'dashboard/dashboard-data.html' %}
+		</div>
+	</div>
+</section>
+
 {% endblock content %}
+
+{% block script %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/charts.js' %}"></script>
+<script>
+
+    function gera_cor(qtd=1){
+        var bg_color = []
+        var border_color = []
+        for(let i = 0; i < qtd; i++){
+            let r = Math.random() * 255;
+            let g = Math.random() * 255;
+            let b = Math.random() * 255;
+            bg_color.push(`rgba(${r}, ${g}, ${b}, ${0.2})`)
+            border_color.push(`rgba(${r}, ${g}, ${b}, ${1})`)
+        }
+        
+        return [bg_color, border_color];
+        
+    }
+
+
+    function  create_chrat (url){
+            fetch(url, {
+                method: 'get',
+            }).then(function(result){
+                return result.json()
+            }).then(function(data){
+            var cores_faturamento_mensal = gera_cor(qtd=12)
+            const ctx = document.getElementById('despesas_mensal').getContext('2d');
+               
+                const myChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Gastos',
+                            data: data.data,
+                            backgroundColor: cores_faturamento_mensal[0],
+                            borderColor: cores_faturamento_mensal[1],
+                            borderWidth: 1,
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                    
+                });
+            })
+    }
+    window.onload = function(event){
+        create_chrat("{% url 'chart' %}")
+    }
+    
+</script>
+
+{% endblock script%}
