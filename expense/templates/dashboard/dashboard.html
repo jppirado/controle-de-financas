@@ -21,7 +21,9 @@
 
 				<h1>Bem Vindo - <strong>{{user}}</strong> </h1>
 				<!-- Page Description -->
-				<p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Cras ultricies ligula sed magna dictum porta.</p>
+				<p>Seu gasto registrado no aplicativo: <strong>
+                    {{total.total_sum}}
+                </strong> </p>
 			</div>
 		</div>
 	</div>
@@ -58,7 +60,6 @@
                 componentFolder: "https://cdn.flexmonster.com/",
                 width: "100%",
                 height: 430,
-                //toolbar: true,
                 report: {
                     dataSource: {
                         type: "json",
