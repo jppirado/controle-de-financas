@@ -10,6 +10,69 @@
 </style>
 
 {% endblock css %}
+  <link rel="stylesheet" href="https://cdn.flexmonster.com/demo.css">
 {% block content %}
-    {% include  'dashboard/dashboard-options.html' %}
+
+<section class="section page-title">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-8 m-auto">
+				<!-- Page Title -->
+				<h1>Bem Vindo - <strong>{{user}}</strong> </h1>
+				<!-- Page Description -->
+				<p>Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus. Cras ultricies ligula sed magna dictum porta.</p>
+			</div>
+		</div>
+	</div>
+</section>
+
+<section class="privacy section pt-0">
+	<div class="container">
+		<div class="row">
+            {% include  'dashboard/dashboard-options.html' %}
+            {% include  'dashboard/dashboard-data.html' %}
+		</div>
+	</div>
+</section>
+
 {% endblock content %}
+
+{% block script %}
+    <script src="https://cdn.flexmonster.com/flexmonster.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script>
+    function processData(dataset) {
+        var result = []
+        dataset = JSON.parse(dataset);
+        dataset.forEach(item => result.push(item.fields));
+        return result;
+    }
+    $.ajax({
+        url: $("#pivot-table-container").attr("data-url"),
+        dataType: 'json',
+        success: function(data) {
+            new Flexmonster({
+                container: "#pivot-chart-container",
+                componentFolder: "https://cdn.flexmonster.com/",
+                width: "100%",
+                height: 430,
+                //toolbar: true,
+                report: {
+                    dataSource: {
+                        type: "json",
+                        data: processData(data)
+                    },
+                    slice: {},
+                    "options": {
+                        "viewType": "charts",
+                        "chart": {
+                            "type": "line"
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock script%}
