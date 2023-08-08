@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 LOGIN_REDIRECT_URL = '/expense/dashboard'
 LOGIN_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_SIGNUP_REDIRECT_URL = "/expense/dashboard/"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
