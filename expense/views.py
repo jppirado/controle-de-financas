@@ -19,25 +19,24 @@ def load_json_data(request):
     return JsonResponse(data, safe=False)
 
 
+
 def relatorio_fature(request):
-    
     x = Expense.objects.filter(user=request.user)
-    
-    meses = [ "Jan", "Fev", "Ma", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez" ]
-    data =[ ]
-    labels = [ ]
+
+    meses = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez']
+    data = []
+    labels = []
     mes = datetime.now().month + 1 
-    ano = datetime.now().year
-    
-    for i in range(12):
+    for i in range(12):  
+        y = sum([i.value for i in x if i.date.month == mes ])
+        labels.append(meses[mes-1])
+        data.append(y) 
         mes -= 1 
         if mes == 0:
-            mes = 12
-            ano -= 1 
-        y = sum([i.value for i in x if i.date.month == mes and i.date.year == ano] )
-        labels.append(meses[mes-1])
-        data.append(y)
-    return JsonResponse ({'data':data[::-1] , 'labels':labels[::1]})
+            mes = 12     
+                   
+    data_json = {'data': data[::-1], 'labels': labels[::-1]}
+    return JsonResponse(data_json)
 
 class CreateExpense( CreateView ):
     model =  Expense
