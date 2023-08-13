@@ -76,10 +76,12 @@ def update_expense(request):
     data_id  = request.GET.get('data_id') 
     new_name = request.GET.get('name') 
     new_value = request.GET.get('value')
-    expense = get_object_or_404(Expense,id=data_id) 
+
+  
+    expense = Expense.objects.get(pk=data_id)
     expense.name= new_name
-    expense.value = new_value
+    expense.value = float(new_value)
     expense.save()  
 
-    data = {'status':'update-item', 'title':new_name}
+    data = {'status':'update-item', 'title':new_name, 'value':new_value}
     return JsonResponse(data) 
