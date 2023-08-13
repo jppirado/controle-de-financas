@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from user.admin import CustomUserCreationForm
+from django.contrib.auth import login
 
 # Create your views here.
 
@@ -15,7 +16,8 @@ def register(request):
             user = form.save(commit=False)
             user.is_valid = False
             user.save()
-            return redirect('user/')
+
+            return redirect('/accounts/login/')
 
         else:
             print('invalid registration details')

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 class Expense( models.Model ):
     name = models.CharField("Nome da Compra" , max_length=255)
-    value = models.FloatField()
+    value = models.FloatField(max_length=10)
     date = models.DateField("Data da compra" , default=datetime.now())
     user = models.ForeignKey(User , on_delete=models.SET_NULL , null=True , blank=True)
     

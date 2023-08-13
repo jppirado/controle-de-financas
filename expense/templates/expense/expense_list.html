@@ -1,8 +1,71 @@
 {% extends 'base/base.html' %}
+
+{% block css %}
+<style>
+    .user-image {
+        width: 100px;
+        border-radius: 50%;
+        border: 2px solid black;
+    }    
+</style>
+{%endblock css%}
+
+
 {% block content %}
-    
-    {% for item in object_list  %}
-            <p>{{item}}</p>
-    {% endfor %}
-        
+    <section class="section page-title">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 m-auto">
+                    <h1>Bem Vindo - <strong>{{user}}</strong> </h1>
+               
+                    <p>Seu gasto registrado no aplicativo: <strong>
+                        {{total.total_sum}}
+                    </strong> </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="privacy section pt-0">
+        <div class="container">
+            <div class="row">
+                {% include  'dashboard/dashboard-options.html' %}
+                {% include 'expense/expense_list_ajax.html' %}
+              
+            </div>
+        </div>
+    </section>       
 {% endblock content%}
+
+{% block script %}
+<script>
+    $("div.title").click(function () { 
+        var data_id = $(this).attr("data-title");   
+        $("form#form-title" + data_id).removeClass('d-none')
+        $("div#title" + data_id).addClass('d-none')
+
+        $('button#edit' + data_id).on("click", function (e) {
+            e.preventDefault();
+
+            title = $('input#inputText'+ data_id).val(); 
+            value = $('input#inputText2'+ data_id).val(); 
+
+            $.ajax({
+                type: 'GET',
+                url: '{% url "expense.update" %}',
+                data: {'data_id': data_id,'name': title,'value':value},
+                datatype: "json",
+                success: function (data) { 
+                    if (data.status == "update-item") {
+                        $("form#form-title" + data_id).addClass('d-none');
+                        $("div#title" + data_id).removeClass('d-none'); 
+                        $("#title" + data_id).html(data.title); 
+                    }   
+                }
+            }); 
+
+        }); 
+    })
+</script>
+
+{% endblock script %}

@@ -3,12 +3,51 @@
 {% block title %}Registrar{% endblock %}
 
 {% block content %} 
-<div class="col-md-4">
-    <h4>Criar uma conta</h4>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-warning mt-3" type="submit">Registrar</button>
-    </form>
-</div>
+
+<section class="contact-form section ">
+    {% if form.errors %}
+        {{form.errors}}
+    {% endif %}
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h2 class="mb-5 text-center">Registre-se</h2>
+			</div>
+			<div class="col-12 center">
+				<form method="post">
+                    {% csrf_token %}
+					<div class="row">
+						<!-- Name -->
+						<div class="col-md-6 mb-2">
+							<input class="form-control main" type="text" placeholder="Username" {{form.username}}
+						</div>
+						<!-- Email -->
+						<div class="col-md-6 mb-2">
+							<input class="form-control main" type="email" placeholder="Email" required {{form.email}}
+						</div>
+						<!-- subject -->
+						<div class="col-md-6 mb-2">
+							<input class="form-control main" type="text" placeholder="Nome" required {{form.first_name}}
+						</div>
+                        <div class="col-md-6 mb-2">
+							<input class="form-control main" type="text" placeholder="Sobrenome" required {{form.last_name}}
+						</div>
+
+                        <div class="col-md-6 mb-2">
+							<input class="form-control main" type="password" placeholder="Confirme Senha" required {{form.password2}}
+						</div>
+
+                        <div class="col-md-6 mb-2">
+							<input class="form-control main" type="password" placeholder="Senha" required {{form.password1}}
+						</div>
+                     
+						<div class="col-12 text-right">
+							<button class="btn btn-main-md">Submit</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
 {% endblock %}
